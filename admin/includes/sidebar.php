@@ -10,51 +10,44 @@ function isActive($url)
 }
 ?>
 
-<ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:#00703C;">
 
     <div class="image-container" style="background-color:white;  width: 100%; height: 70px; ">
            <center>
-           <img src="../../assets/img/invoice-logo.png" alt="invoice" width="120" height="60" >
+           <img src="../../assets/img/lsu.png" alt="invoice" width="auto" height="70" >
            </center>
     </div>
 
-    <!-- Nav Item - Add Issue -->
-    <li class="nav-item <?php if (isActive('addissue/index.php')) { echo 'active'; } ?>">
-        <a class="nav-link" href="../addissue/index.php">
+    <!-- Nav Item - Data Visualization -->
+    <li class="nav-item <?php if (isActive('visualization/index.php')) { echo 'active'; } ?>">
+        <a class="nav-link" href="../visualization/index.php">
             <i class="fas fa-fw fa-exclamation-circle"></i>
-            <span>Add Issue</span>
+            <span>Data Visualization</span>
         </a>
     </li>
 
-    <!-- Nav Item - Issues -->
-    <li class="nav-item <?php if (isActive('issues/index.php')) { echo 'active'; } ?>">
-        <a class="nav-link" href="../issues/index.php">
+    <!-- Nav Item - Activity Log -->
+    <li class="nav-item <?php if (isActive('activitylog/index.php')) { echo 'active'; } ?>">
+        <a class="nav-link" href="../activitylog/index.php">
             <i class="fas fa-fw fa-bug"></i>
-            <span>Issues</span>
+            <span>Activity Log</span>
         </a>
     </li>
 
-    <!-- Nav Item - Board -->
-    <li class="nav-item <?php if (isActive('home/tables.php')) { echo 'active'; } ?>">
-        <a class="nav-link" href="../home/tables.php">
+    <!-- Nav Item - Air Quality Index -->
+    <li class="nav-item <?php if (isActive('aqi/index.php')) { echo 'active'; } ?>">
+        <a class="nav-link" href="../aqi/index.php">
             <i class="fas fa-fw fa-columns"></i>
-            <span>Board</span>
+            <span>Air Quality Index</span>
         </a>
     </li>
 
-    <!-- Nav Item - Wiki -->
-    <li class="nav-item <?php if (isActive('tables.php')) { echo 'active'; } ?>">
-        <a class="nav-link" href="../wiki/index.php">
+    <!-- Nav Item - Reset -->
+    <li class="nav-item <?php if (isActive('reset/index.php')) { echo 'active'; } ?>">
+        <a class="nav-link" href="../reset/index.php">
             <i class="fas fa-fw fa-book"></i>
-            <span>Wiki</span>
+            <span>Reset</span>
         </a>
     </li>    
 
-    <!-- Nav Item - Project Settings -->
-    <li class="nav-item <?php if (isActive('tables.php')) { echo 'active'; } ?>">
-        <a class="nav-link" href="../home/tables.php">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Project Settings</span>
-        </a>
-    </li>
 </ul>
