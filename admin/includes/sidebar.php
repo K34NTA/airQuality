@@ -41,13 +41,4 @@ function isActive($url)
             <span>Air Quality Index</span>
         </a>
     </li>
-
-    <!-- Nav Item - Reset -->
-    <li class="nav-item <?php if (isActive('reset/index.php')) { echo 'active'; } ?>">
-        <a class="nav-link" href="../reset/index.php">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Reset</span>
-        </a>
-    </li>    
-
 </ul>

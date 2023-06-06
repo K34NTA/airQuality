@@ -3,7 +3,11 @@
 
 <head>
     <?php include ('../includes/header.php'); ?>
-    <title>Activty Log</title>
+    <title>Activity Log</title>
+    <script src="<?php echo base_url ?>assets/js/datatables.min.js"></script> <!-- Add the DataTables library script -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -12,7 +16,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-            <?php include ('../includes/sidebar.php'); ?>
+        <?php include ('../includes/sidebar.php'); ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -22,14 +26,14 @@
             <div id="content">
 
                 <!-- Topbar -->
-                    <?php include ('../includes/topbar.php'); ?>
+                <?php include ('../includes/topbar.php'); ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800"><strong>Activty Log</strong></h1>
+                    <h1 class="h3 mb-4 text-gray-800"><strong>Activity Log</strong></h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -41,55 +45,68 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Entry number</th>
+                                            <th>Carbon Monoxide</th>
+                                            <th>Nitrogen Dioxide</th>
+                                            <th>Ground-level Ozone</th>
+                                            <th>Particulate Matter</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Entry number</th>
+                                            <th>Carbon Monoxide</th>
+                                            <th>Nitrogen Dioxide</th>
+                                            <th>Ground-level Ozone</th>
+                                            <th>Particulate Matter</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
+                                <!-- DataTables JavaScript code -->
+                                <script type="text/javascript">
+                                    $(document).ready(function(){
+                                        var dataTable = $('#dataTable').DataTable({
+                                            'processing': true,
+                                            'serverSide': true,
+                                            'serverMethod': 'post',
+                                            'ajax': {
+                                                'url': 'backend.php'
+                                            },
+                                            'columns': [
+                                                { data: 'id' },
+                                                { data: 'carbon_monoxide'},
+                                                { data: 'nitrogen_dioxide'},
+                                                { data: 'ground_level_ozone'},
+                                                { data: 'particulate_matter'},
+                                            ]
+                                        });
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>
+                    <!-- Reset data button -->
+                    <form method="POST" action="">
+                        <button id="resetDataBtn" class="btn btn-danger">Reset Data</button>
+                        <?php
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            include_once('../includes/header.php');
 
+                            $query = "TRUNCATE TABLE gasses";
+
+                            if (mysqli_multi_query($con, $query)) {
+                                $_SESSION['status'] = "Truncate Successfully.";
+                                $_SESSION['status_code'] = "success";
+                            } else {
+                                $_SESSION['status'] = "Error" . mysqli_error($con);
+                                $_SESSION['status_code'] = "error";
+                            }
+
+                            mysqli_close($con);
+                        }
+                        ?>
+                    </form>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -97,7 +114,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-                <?php include ('../includes/footer.php'); ?>
+            <?php include ('../includes/footer.php'); ?>
             <!-- End of Footer -->
 
         </div>
@@ -111,7 +128,7 @@
     <!-- End of Modal -->
 
     <!-- Start of Bottom -->
-        <?php include ('../includes/bottom.php'); ?>
+    <?php include ('../includes/bottom.php'); ?>
     <!-- End of Bottom -->
 
 </body>
