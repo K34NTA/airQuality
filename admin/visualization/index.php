@@ -42,9 +42,9 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Carbon Monoxide</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart-area">
+                                    <!-- <div class="chart-area">
                                         <canvas id="myAreaChart"></canvas>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -55,9 +55,9 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Nitrogen Dioxide</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart-bar">
+                                    <!-- <div class="chart-bar">
                                         <canvas id="myBarChart"></canvas>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Ground-level Ozone</h6>
                                 </div>
                                 <div class="card-body">
-                                <canvas id="myChart"></canvas>
+                                <!-- <canvas id="myChart"></canvas>
                                 <script>
                                     var ctx = document.getElementById('myChart').getContext('2d');
                                     var myChart = new Chart(ctx, {
@@ -92,7 +92,7 @@
                                         }
                                         }
                                     });
-                                </script>
+                                </script> -->
                                 </div>
                             </div>
 
@@ -102,7 +102,7 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Particulate Matter</h6>
                                 </div>
                                 <div class="card-body">
-                                    <canvas id="myChart2"></canvas>
+                                    <!-- <canvas id="myChart2"></canvas>
                                     <script>
                                         var ctx = document.getElementById('myChart2').getContext('2d');
                                         var myChart2 = new Chart(ctx, {
@@ -132,7 +132,7 @@
                                             }
                                             }
                                         });
-                                    </script>
+                                    </script> -->
 
                                 </div>
                             </div>

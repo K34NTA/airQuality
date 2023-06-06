@@ -6,11 +6,9 @@
     </button>
 
     <!-- Dashboard -->
-    <div class="dashboard<?php if (isActive('../dashboard/index.php')) { echo 'active'; } ?>">
-        <a class="nav-link" href="../dashboard/index.php">
-            <i class="fas fa-chart-line" style="color: black;"></i>
-            <span style="color: black;">Dashboard</span></a>        
-    </div>
+    <h1>
+        <strong>IoT Real Time Air Quality Monitoring System</strong>
+    </h1>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
