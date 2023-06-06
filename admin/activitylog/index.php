@@ -4,10 +4,10 @@
 <head>
     <?php include ('../includes/header.php'); ?>
     <title>Activity Log</title>
-    <script src="<?php echo base_url ?>assets/js/datatables.min.js"></script> <!-- Add the DataTables library script -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url ?>assets/js/datatables.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -63,26 +63,6 @@
                                     </tfoot>
                                     <tbody></tbody>
                                 </table>
-                                <!-- DataTables JavaScript code -->
-                                <script type="text/javascript">
-                                    $(document).ready(function(){
-                                        var dataTable = $('#dataTable').DataTable({
-                                            'processing': true,
-                                            'serverSide': true,
-                                            'serverMethod': 'post',
-                                            'ajax': {
-                                                'url': 'backend.php'
-                                            },
-                                            'columns': [
-                                                { data: 'id' },
-                                                { data: 'carbon_monoxide'},
-                                                { data: 'nitrogen_dioxide'},
-                                                { data: 'ground_level_ozone'},
-                                                { data: 'particulate_matter'},
-                                            ]
-                                        });
-                                    });
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -123,6 +103,35 @@
     </div>
     <!-- End of Page Wrapper -->
 
+    <!-- DataTables JavaScript code -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var dataTable = $('#dataTable').DataTable({
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'ajax': {
+                    'url': 'backend.php'
+                },
+                'columns': [{
+                        data: 'id'
+                    },
+                    {
+                        data: 'carbon_monoxide'
+                    },
+                    {
+                        data: 'nitrogen_dioxide'
+                    },
+                    {
+                        data: 'ground_level_ozone'
+                    },
+                    {
+                        data: 'particulate_matter'
+                    },
+                ]
+            });
+        });
+    </script>
     <!-- Start of Modal -->
     <?php include ('../includes/modal.php'); ?>
     <!-- End of Modal -->
@@ -130,7 +139,7 @@
     <!-- Start of Bottom -->
     <?php include ('../includes/bottom.php'); ?>
     <!-- End of Bottom -->
-
+    
 </body>
 
 </html>
