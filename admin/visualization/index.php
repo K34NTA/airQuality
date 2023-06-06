@@ -157,9 +157,9 @@
     <!-- End of Modal -->
 
     <!-- Start of Bottom -->
-        <?php include ('../includes/bottom.php'); ?>
+    <?php include ('../includes/bottom.php'); ?>
     <!-- End of Bottom -->
-
+    
 </body>
 
 </html>
