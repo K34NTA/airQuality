@@ -41,4 +41,12 @@ function isActive($url)
             <span>Air Quality Index</span>
         </a>
     </li>
+
+    <!-- Nav Item - About -->
+    <li class="nav-item <?php if (isActive('about/index.php')) { echo 'active'; } ?>">
+        <a class="nav-link" href="../about/index.php">
+            <i class="fas fa-fw fa-check"></i>
+            <span>About</span>
+        </a>
+    </li>
 </ul>
