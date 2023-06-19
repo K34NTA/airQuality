@@ -21,15 +21,15 @@ function isActive($url)
     <!-- Nav Item - Data Visualization -->
     <li class="nav-item <?php if (isActive('visualization/index.php')) { echo 'active'; } ?>">
         <a class="nav-link" href="../visualization/index.php">
-            <i class="fas fa-fw fa-exclamation-circle"></i>
-            <span>Data Visualization</span>
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
         </a>
     </li>
 
     <!-- Nav Item - Activity Log -->
     <li class="nav-item <?php if (isActive('activitylog/index.php')) { echo 'active'; } ?>">
         <a class="nav-link" href="../activitylog/index.php">
-            <i class="fas fa-fw fa-bug"></i>
+            <i class="fas fa-fw fa-history"></i>
             <span>Activity Log</span>
         </a>
     </li>

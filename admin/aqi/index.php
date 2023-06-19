@@ -4,6 +4,37 @@
 <head>
     <?php include ('../includes/header.php'); ?>
     <title>Air Quality Index</title>
+    <style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ccc;
+  }
+
+  thead {
+    background-color: #f2f2f2;
+  }
+
+  th {
+    font-weight: bold;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  p {
+    margin-top: 10px;
+    font-style: italic;
+  }
+</style>
 </head>
 
 <body id="page-top">
@@ -29,10 +60,85 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Air Quality Index</h1>
+                    <h1 class="h3 mb-4" style="color:#00703C; padding-left: 15px;"><strong>Air Quality Index</strong></h1>
 
                 </div>
-                <!-- /.container-fluid -->
+                <!-- container-fluid -->
+                <!-- Table content -->
+                <div style="padding: 20px;">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Pollutant</th>
+                            <th>Unit, Averaging Time</th>
+                            <th>Good</th>
+                            <th>Fair</th>
+                            <th>Unhealthy for sensitive groups</th>
+                            <th>Very Unhealthy</th>
+                            <th>Acutely unhealthy</th>
+                            <th>Emergency</th>
+                        </tr>
+                        </thead>
+                    <tbody>
+                        <tr>
+                            <td>PM10</td>
+                            <td>µg/Nm3, 24-hr</td>
+                            <td>0 - 54 </td>
+                            <td>55 -154</td>
+                            <td>155 - 254 </td>
+                            <td>255 - 354 </td>
+                            <td>355 - 424 </td>
+                            <td>425 - 504 </td>
+                        </tr>
+                        <tr>
+                            <td>O3</td>
+                            <td>ppm, 8-hr</td>
+                            <td>0.000 - 0.064</td>
+                            <td>0.065 - 0.084</td>
+                            <td>0.085 - 0.104</td>
+                            <td>0.105 - 0.124</td>
+                            <td>0.125 - 0.374 </td>
+                            <td>a</td>
+                        </tr>
+                        <tr>
+                            <td>O3</td>
+                            <td>ppm, 1-hr</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>0.125 - 0.164</td>
+                            <td>0.165 - 0.204</td>
+                            <td>0.205 - 0.404</td>
+                            <td>0.405 - 0.504</td>
+                        </tr>
+                        <tr>
+                            <td>CO</td>
+                            <td>ppm, 8-hr</td>
+                            <td>0.0 - 4.4</td>
+                            <td>4.5 - 9.4</td>
+                            <td>9.5 - 12.4</td>
+                            <td>12.5 - 15.4</td>
+                            <td>15.5 - 30.4</td>
+                            <td>30.5 - 40.4</td>
+                        </tr>
+                        <tr>
+                            <td>NO2</td>
+                            <td>ppm, 1-hr</td>
+                            <td>b</td>
+                            <td>b</td>
+                            <td>b</td>
+                            <td>b</td>
+                            <td>0.65 - 1.24</td>
+                            <td>1.25 - 1.64</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <p style="margin-bottom: -15px;font-style:italic;"> a - When 8-hour O3 concentrations surpass 0.374 ppm, AQI values of at least 301 must be determined using 1-hour O3 concentrations.</p>
+                    <p>b - NO2 has no 1-hour term NAAQGV</p>
+                </div>
+               
+                </div>
+             
 
             </div>
             <!-- End of Main Content -->
