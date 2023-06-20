@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <link rel="shortcut icon" type="image/ico" href="https://www.datatables.net/favicon.ico">
     <?php include ('../includes/header.php'); ?>
     <title>Data Visualization</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
