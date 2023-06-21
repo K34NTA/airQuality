@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2023 at 06:38 AM
+-- Generation Time: Jun 21, 2023 at 05:30 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `gasses` (
   `id` int(11) NOT NULL,
+  `time` datetime NOT NULL DEFAULT current_timestamp(),
   `carbon_monoxide` varchar(255) NOT NULL,
   `nitrogen_dioxide` varchar(255) NOT NULL,
   `ground_level_ozone` varchar(255) NOT NULL,
