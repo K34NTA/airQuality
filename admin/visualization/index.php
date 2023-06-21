@@ -34,7 +34,7 @@
                     <h1 class="h3 mb-4" style="color:#00703C; padding-left: 15px;"><strong>Data Visualization</strong></h1>
                     <div class="row">
 
-                        <div class="col-lg-10">
+                        <div class="col-lg-9">
 
                             <!-- Data Visualization -->
                             <div class="card shadow mb-4">
@@ -57,17 +57,24 @@
 
                         </div>
 
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                             <!-- Legend -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold" style="color:#00703C;">Definition of gasses</h6>
+                                    <h6 class="m-0 font-weight-bold" style="color:#00703C;">Gas Definitions</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p>Carbon Monoxide</p>
-                                    <p>Nitrogen Dioxide</p>
-                                    <p>Ground-level-Ozone</p>
-                                    <p>Particulate Matter</p>
+                                    <h6><strong>Carbon Monoxide (CO)</strong></h6>
+                                    <p>It is a colorless, odorless gas produced by incomplete combustion of fossil fuels. It is harmful when inhaled as it interferes with oxygen transport.</p>
+
+                                    <h6><strong>Nitrogen Dioxide (NO2)</strong></h6>
+                                    <p>It is a reddish-brown gas with a pungent odor. It is formed by burning fossil fuels and contributes to air pollution and respiratory health problems.</p>
+
+                                    <h6><strong>Ground-level Ozone (O3)</strong></h6>
+                                    <p>It is a colorless gas formed by the reaction of sunlight with pollutants like nitrogen oxides and volatile organic compounds. It contributes to smog and respiratory issues.</p>
+
+                                    <h6><strong>Particulate Matter (PM)</strong></h6>
+                                    <p>It refers to tiny suspended particles in the air, including dust, soot, and liquid droplets. Inhalation of particulate matter can have adverse effects on the respiratory and cardiovascular systems.</p>
                                 </div>
                             </div>
                         </div>

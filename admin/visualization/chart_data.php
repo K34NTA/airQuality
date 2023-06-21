@@ -70,7 +70,7 @@ $dataLine = [
                 "tension" => 0.4
             ],
             [
-                "label" => "Particulate Matter (PPB)",
+                "label" => "Particulate Matter (µg/Nm3)",
                 "data" => $particulate_data,
                 "backgroundColor" => "rgba(139, 136, 181, .2)",
                 "fill" => true,
