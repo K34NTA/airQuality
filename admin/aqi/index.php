@@ -16,6 +16,7 @@
     padding: 8px;
     text-align: left;
     border: 1px solid #ccc;
+    color: black;
   }
 
   thead {

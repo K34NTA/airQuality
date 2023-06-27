@@ -7,7 +7,7 @@
 
     <!-- Dashboard -->
     <h1 style="color:#00703C;">
-        <strong>IoT Real Time Air Quality Monitoring System</strong>
+        <strong style="font-family: none;">IoT Real Time Air Quality Monitoring System</strong>
     </h1>
 
     <!-- Topbar Navbar -->

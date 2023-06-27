@@ -39,6 +39,71 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold" style="color:#00703C;">Activity Log</h6>
                         </div>
+                        <div style="padding: 20px;">
+                            <style>
+                                table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    font-family: Arial, sans-serif;
+                                }
+
+
+                                    th, td {
+                                        padding: 8px;
+                                        text-align: center;
+                                        border: 1px solid black;
+                                        color: black;
+                                    }
+
+                                    .good {
+                                        background-color: #58D68D;
+                                    }
+
+                                    .unhealthy {
+                                        background-color: #F5B041 ;
+                                    }
+
+                                    .emergency {
+                                        background-color: #EC7063;
+                                    }
+                            </style>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Pollutant</th>
+                                        <th>Good</th>
+                                        <th>Unhealthy</th>
+                                        <th>Emergency</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>PM10 (µg/Nm3)</td>
+                                        <td class="good">0 - 154</td>
+                                        <td class="unhealthy">155 - 424</td>
+                                        <td class="emergency">425 and above</td>
+                                    </tr>
+                                    <tr>
+                                        <td>O3 (ppm)</td>
+                                        <td class="good">0.000 - 0.084</td>
+                                        <td class="unhealthy">0.085 - 0.374</td>
+                                        <td class="emergency">0.375 and above</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CO (ppm)</td>
+                                        <td class="good">0.0 - 9.4</td>
+                                        <td class="unhealthy">9.5 - 30.4</td>
+                                        <td class="emergency">30.5 and above</td>
+                                    </tr>
+                                    <tr>
+                                        <td>NO2 (ppm)</td>
+                                        <td class="good">0.00 - 0.65</td>
+                                        <td class="unhealthy">0.65 - 1.24</td>
+                                        <td class="emergency">1.25 and above</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
