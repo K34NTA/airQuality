@@ -26,16 +26,23 @@
     <div class="">
 
         <!-- Outer Row -->
-        <div class="row justify-content-center">
-                <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class=" justify-content-center">
+            <div class="image-container" style="background-color:white;  width: 100%; height: 70px; ">
+                <center>
+                <img src="../assets/img/ccsea.png" alt="invoice" width="auto" height="100px" >
+                </center>
+            </div>
+                <div class="">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
-                        <div class="row">
+                        <div class="">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 style="color:#00703C;">
+                                            <strong style="font-family: none;">IoT Real Time Air Quality Monitoring System</strong>
+                                        </h1>
                                     </div>
-                                    <form class="user" action="logincode.php" method="POST">
+                                    <form class="user" action="logincode.php" method="POST" style="padding-left: 600px;padding-right: 600px;">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                         </div>
@@ -48,7 +55,7 @@
                                                 <label class="custom-control-label" for="customCheck">Remember Me</label>
                                             </div>
                                         </div> -->
-                                        <button type="submit" name="login_btn" class="btn btn-primary btn-user btn-block">Login</button>
+                                        <button type="submit" name="login_btn" class="btn btn-success btn-user btn-block">Login</button>
                                     </form>
                                 </div>
                             </div>
