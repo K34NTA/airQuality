@@ -551,7 +551,7 @@ pre code {
 .container-md,
 .container-lg,
 .container-xl {
-  width: 200%;
+  width: 100%;
   padding-right: 0.75rem;
   padding-left: 0.75rem;
   margin-right: auto;
@@ -560,7 +560,7 @@ pre code {
 
 @media (min-width: 576px) {
   .container, .container-sm {
-    max-width: 800px;
+    max-width: 540px;
   }
 }
 
@@ -6003,7 +6003,7 @@ a.close.disabled {
   display: block;
   content: "";
   border-color: transparent;
-  border-style: solid1;
+  border-style: solid;
 }
 
 .bs-popover-top, .bs-popover-auto[x-placement^="top"] {
