@@ -5,7 +5,10 @@
     <?php include ('../includes/header.php'); ?>
     <title>Data Visualization</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+
 </head>
 
 <body id="page-top">
@@ -31,141 +34,181 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4" style="color:#00703C; padding-left: 15px;"><strong>Data Visualization</strong></h1>
+                    
                     <div class="row">
 
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
 
                             <!-- Data Visualization -->
-                            <div class="card shadow mb-4">
-                                <!-- <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold" style="color:#00703C;"> Data Visualization</h6>
-                                </div> -->
-                                <div class="card-body">
-                                    <div>
-                                        <canvas id="line-chart"></canvas>
-                                    </div>
+                            <canvas id="lineChart" style="width: 60vw; height: 40vh;"></canvas>
+                              <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center;">
+                                <canvas id="barChart" width="200" height="40"></canvas>
+                                
+                                <script>
+                                  const sensorData = {
+                                    CO: [],
+                                    NO2: [],
+                                    Ozone: [], 
+                                    dust: [],
+                                  };
 
-                                    <script>
-                                        // Declare the chart variable outside the updateChartData function
-                                        var chart;
+                                  const lineChartData = {
+                                    labels: [],
+                                    datasets: [
+                                      
+                                      {
+                                        label: 'Carbon Monoxide (PPM)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                                        fill: true,
+                                        data: sensorData.CO,
+                                        tension: 0.5,
+                                      },
+                                      {
+                                        label: 'Nitrogen Dioxide (PPM)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                                        fill: true,
+                                        data: sensorData.NO2,
+                                        tension: 0.5,
+                                      },
+                                      {
+                                        label: 'Ground-level Ozone (PPM)', 
+                                        borderColor: 'rgba(0, 128, 0, 1)',
+                                        backgroundColor: 'rgba(0, 128, 0, 0.1)',
+                                        fill: true,
+                                        data: sensorData.Ozone,
+                                        tension: 0.5,
+                                      },
+                                      {
+                                        label: 'Particulate Matter (µg/Nm3)',
+                                        borderColor: 'rgba(255, 255, 75, 1)',
+                                        backgroundColor: 'rgba(255, 255, 75, 0.1)',
+                                        fill: true,
+                                        data: sensorData.dust,
+                                        tension: 0.5,
+                                      },
+                                    ],
+                                  };
 
-                                        // Function to fetch updated chart data using AJAX
-                                        function updateChartData() {
-                                            $.ajax({
-                                                url: 'ajax_chart.php',
-                                                method: 'GET',
-                                                dataType: 'json',
-                                                success: function (data) {
-                                                    // Process the retrieved data
-                                                    var labels = data.map(function (item) {
-                                                        return item.time;
-                                                    }).reverse();
+                                  const lineChartConfig = {
+                                  type: 'line',
+                                  data: lineChartData,
+                                  options: {
+                                    responsive: true,
+                                    scales: {
+                                      x: {
+                                        display: true,
+                                        title: {
+                                          display: true,
+                                          text: 'Real time Data',
+                                        },
+                                      },
+                                      y: {
+                                        display: true,
+                                        title: {
+                                          display: true,
+                                          text: 'Sensor Value',
+                                        },
+                                      },
+                                    },
+                                      plugins: {
+                                        wavyLines: {
+                                          tension: 0.3, // Adjust the tension for the wavy effect (0.1 to 0.5)
+                                        },
+                                      },
+                                      animation: {
+                                        duration: 3000, // Adjust animation duration for smoothness
+                                      },
+                                    },
+                                  };
 
-                                                    var coData = data.map(function (item) {
-                                                        return item.carbon_monoxide;
-                                                    });
+                                  const barChartData = {
+                                    labels: ['Carbon Monoxide (PPM)', 'Nitrogen Dioxide (PPM)', 'Ground-level Ozone (PPM)', 'Particulate Matter (µg/Nm3)'],
+                                    datasets: [
+                                      {
+                                        backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(0, 128, 0, 1)', 'rgba(255, 255, 75, 1)'], 
+                                        borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(0, 128, 0, 1)', 'rgba(255, 255, 75, 1)'], 
+                                        borderWidth: 1,
+                                        data: [0, 0, 0, 0],
+                                      },
+                                    ],
+                                  };
 
-                                                    var no2Data = data.map(function (item) {
-                                                        return item.nitrogen_dioxide;
-                                                    });
+                                  const barChartConfig = {
+                                    type: 'bar',
+                                    data: barChartData,
+                                    options: {
+                                      responsive: true,
+                                      scales: {
+                                        x: {
+                                          display: true,
+                                        },
+                                        y: {
+                                          display: true,
+                                          title: {
+                                            display: true,
+                                            text: 'Sensor Value',
+                                          },
+                                        },
+                                      },
+                                      plugins: {
+                                        legend: {
+                                          display: false,
+                                        },
+                                      },
+                                    },
+                                  };
 
-                                                    var ozoneData = data.map(function (item) {
-                                                        return item.ground_level_ozone;
-                                                    });
+                                  const sensorColors = {
+                                    CO: 'rgba(255, 99, 132, 0.2)',
+                                    NO2: 'rgba(54, 162, 235, 0.2)',
+                                    Ozone: 'rgba(0, 128, 0, 0.2)',
+                                    dust: 'rgba(255, 255, 75, 0.1)',
+                                  };
 
-                                                    var particulateData = data.map(function (item) {
-                                                        return item.particulate_matter;
-                                                    });
+                                  const lineChart = new Chart(document.getElementById('lineChart'), lineChartConfig);
+                                  const barChart = new Chart(document.getElementById('barChart'), barChartConfig);
 
-                                                    // Destroy the previous chart if it exists
-                                                    if (chart) {
-                                                        chart.destroy();
-                                                    }
+                                
+                                  function fetchDataAndUpdateCharts() {
+                                $.ajax({
+                                  url: 'ajax_chart.php', // Replace with the actual path to your PHP script
+                                  type: 'GET',
+                                  dataType: 'json',
+                                  success: function (data) {
+                                    // Update line chart
+                                    lineChartData.labels = data.map(entry => entry.time);
+                                    lineChartData.datasets[0].data = data.map(entry => entry.carbon_monoxide);
+                                    lineChartData.datasets[1].data = data.map(entry => entry.nitrogen_dioxide);
+                                    lineChartData.datasets[2].data = data.map(entry => entry.ground_level_ozone);
+                                    lineChartData.datasets[3].data = data.map(entry => entry.particulate_matter);
+                                    lineChart.update();
 
-                                                    // Create a new chart
-                                                    chart = new Chart(document.getElementById('line-chart'), {
-                                                        type: 'line',
-                                                        data: {
-                                                            labels: labels,
-                                                            datasets: [
-                                                                {
-                                                                    label: 'Carbon Monoxide (PPM)',
-                                                                    data: coData,
-                                                                    backgroundColor: 'rgba(255, 99, 71, 0.2)',
-                                                                    fill: true,
-                                                                    borderColor: 'rgba(255, 99, 132, 0.8)',
-                                                                    borderWidth: 2,
-                                                                    tension: 0.4
-                                                                },
-                                                                {
-                                                                    label: 'Nitrogen Dioxide (PPM)',
-                                                                    data: no2Data,
-                                                                    backgroundColor: 'rgba(114, 255, 0, 0.2)',
-                                                                    fill: true,
-                                                                    borderColor: 'rgba(114, 255, 0, 1)',
-                                                                    borderWidth: 2,
-                                                                    tension: 0.4
-                                                                },
-                                                                {
-                                                                    label: 'Ground-level Ozone (PPM)',
-                                                                    data: ozoneData,
-                                                                    backgroundColor: 'rgba(0, 137, 132, .2)',
-                                                                    fill: true,
-                                                                    borderColor: 'rgba(50, 150, 255, 1)',
-                                                                    borderWidth: 2,
-                                                                    tension: 0.4
-                                                                },
-                                                                {
-                                                                    label: 'Particulate Matter (µg/Nm3)',
-                                                                    data: particulateData,
-                                                                    backgroundColor: 'rgba(139, 136, 181, .2)',
-                                                                    fill: true,
-                                                                    borderColor: 'rgba(139, 136, 181, 1)',
-                                                                    borderWidth: 2,
-                                                                    tension: 0.4
-                                                                }
-                                                            ]
-                                                        },
-                                                        options: {
-                                                            responsive: true
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        }
+                                    // Update bar chart
+                                    barChartData.datasets[0].data = [
+                                      data[data.length - 1].carbon_monoxide,
+                                      data[data.length - 1].nitrogen_dioxide,
+                                      data[data.length - 1].ground_level_ozone,
+                                      data[data.length - 1].particulate_matter,
+                                    ];
+                                    barChart.update();
 
-                                        // Update the chart initially
-                                        updateChartData();
+                                    
+                                  },
+                                  error: function (error) {
+                                    console.error('Error fetching data:', error);
+                                  },
+                                });
+                              }
 
-                                        // Update the chart every 5 seconds
-                                        setInterval(updateChartData, 5000);
-                                    </script>
-                                </div>
-                            </div>
+                              setInterval(() => {
+                                fetchDataAndUpdateCharts();
+                              }, 1000); // Adjust the interval as needed
+                              fetchDataAndUpdateCharts();  
 
-                        </div>
+                                </script> 
 
-                        <div class="col-lg-3">
-                            <!-- Legend -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold" style="color:#00703C;">Gas Definitions</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h6><strong>Carbon Monoxide (CO)</strong></h6>
-                                    <p>It is a colorless, odorless gas produced by incomplete combustion of fossil fuels. It is harmful when inhaled as it interferes with oxygen transport.</p>
-
-                                    <h6><strong>Nitrogen Dioxide (NO2)</strong></h6>
-                                    <p>It is a reddish-brown gas with a pungent odor. It is formed by burning fossil fuels and contributes to air pollution and respiratory health problems.</p>
-
-                                    <h6><strong>Ground-level Ozone (O3)</strong></h6>
-                                    <p>It is a colorless gas formed by the reaction of sunlight with pollutants like nitrogen oxides and volatile organic compounds. It contributes to smog and respiratory issues.</p>
-
-                                    <h6><strong>Particulate Matter (PM)</strong></h6>
-                                    <p>It refers to tiny suspended particles in the air, including dust, soot, and liquid droplets. Inhalation of particulate matter can have adverse effects on the respiratory and cardiovascular systems.</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
