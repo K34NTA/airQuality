@@ -2,20 +2,27 @@
 <html lang="en">
 
 <head>
-    <?php include ('../includes/header.php'); ?>
+    <?php include('../includes/header.php'); ?>
     <title>Activity Log</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="<?php echo base_url ?>assets/js/datatables.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 </head>
 
-<body id="page-top">
-
+<body>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php include ('../includes/sidebar.php'); ?>
+        <?php include('../includes/sidebar.php'); ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -25,16 +32,12 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?php include ('../includes/topbar.php'); ?>
+                <?php include('../includes/topbar.php'); ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
-                    <!-- <h1 class="h3 mb-4 text-gray-800"><strong>Activity Log</strong></h1> -->
-
-                    <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold" style="color:#00703C;">Activity Log</h6>
@@ -47,26 +50,31 @@
                                     font-family: Arial, sans-serif;
                                 }
 
+                                th,
+                                td {
+                                    padding: 8px;
+                                    text-align: center;
+                                    border: 1px solid black;
+                                    color: black;
+                                }
 
-                                    th, td {
-                                        padding: 8px;
-                                        text-align: center;
-                                        border: 1px solid black;
-                                        color: black;
-                                    }
+                                .good {
+                                    background-color: #58D68D;
+                                }
 
-                                    .good {
-                                        background-color: #58D68D;
-                                    }
+                                .unhealthy {
+                                    background-color: #F5B041;
+                                }
 
-                                    .unhealthy {
-                                        background-color: #F5B041 ;
-                                    }
+                                .emergency {
+                                    background-color: #EC7063;
+                                }
+                                
 
-                                    .emergency {
-                                        background-color: #EC7063;
-                                    }
+                              
+                           
                             </style>
+                            
                             <table>
                                 <thead>
                                     <tr>
@@ -103,29 +111,23 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Entry number</th>
+                                            <th>ID</th>
                                             <th>Carbon Monoxide</th>
                                             <th>Nitrogen Dioxide</th>
                                             <th>Ground-level Ozone</th>
                                             <th>Particulate Matter</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Entry number</th>
-                                            <th>Carbon Monoxide</th>
-                                            <th>Nitrogen Dioxide</th>
-                                            <th>Ground-level Ozone</th>
-                                            <th>Particulate Matter</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody></tbody>
+                                    <tbody>
+                                        <!-- Your table rows should be added here -->
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -152,58 +154,47 @@
                         ?>
                     </form>
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <?php include ('../includes/footer.php'); ?>
-            <!-- End of Footer -->
-
+            <?php include('../includes/footer.php'); ?>
+            
         </div>
-        <!-- End of Content Wrapper -->
+       
 
     </div>
-    <!-- End of Page Wrapper -->
+   
+<script type="text/javascript">
+    $(document).ready(function() {
+    // Initialize DataTable with buttons
+    var dataTable = $('#dataTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: ['copy', 'csv', 'pdf'],
+        ajax: {
+            url: '../visualization/ajax_chart.php',
+            dataType: 'json',
+            dataSrc: ''
+        },
+        columns: [
+            {
+                data: null,
+                render: function (data, type, row, meta) {
+                    return meta.row + 1;
+                }
+            },
+            { data: 'carbon_monoxide' },
+            { data: 'nitrogen_dioxide' },
+            { data: 'ground_level_ozone' },
+            { data: 'particulate_matter' }
+        ]
+    });
 
-    <!-- DataTables JavaScript code -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var dataTable = $('#dataTable').DataTable({
-                'processing': true,
-                'serverSide': true,
-                'serverMethod': 'post',
-                'ajax': {
-                    'url': 'backend.php'
-                },
-                'columns': [{
-                        data: 'id'
-                    },
-                    {
-                        data: 'carbon_monoxide'
-                    },
-                    {
-                        data: 'nitrogen_dioxide'
-                    },
-                    {
-                        data: 'ground_level_ozone'
-                    },
-                    {
-                        data: 'particulate_matter'
-                    },
-                ]
-            });
-        });
-    </script>
-    <!-- Start of Modal -->
-    <?php include ('../includes/modal.php'); ?>
-    <!-- End of Modal -->
+   
 
-    <!-- Start of Bottom -->
-    <?php include ('../includes/bottom.php'); ?>
-    <!-- End of Bottom -->
-    
+   
+});
+
+</script>
+
+
 </body>
 
 </html>

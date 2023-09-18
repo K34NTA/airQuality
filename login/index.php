@@ -18,52 +18,65 @@
 
     <!-- Custom styles for this template-->
     <link href="<?php echo base_url ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
 
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../assets/img/background.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1; 
+        }
+
+        .content {
+            padding: 20px;
+        }
+    </style>
 </head>
 
 <body>
-
-    <div class="">
-
+    <div class="background-image"></div>
+    <div class="row">
         <!-- Outer Row -->
-        <div class=" justify-content-center">
-            <div class="image-container" style="background-color:white;  width: 100%; height: 70px; ">
-                <center>
-                <img src="../assets/img/ccsea.png" alt="invoice" width="auto" height="100px" >
-                </center>
-            </div>
-                <div class="">
+        <div class="justify-content-center">
+            <div class="background-image">
+                <div class="row">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
-                        <div class="">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 style="color:#00703C;">
-                                            <strong style="font-family: none;">IoT Real Time Air Quality Monitoring System</strong>
-                                        </h1>
-                                    </div>
-                                    <form class="user" action="logincode.php" method="POST" style="padding-left: 600px;padding-right: 600px;">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" placeholder="Password">
-                                        </div>
-                                        <!-- <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                            </div>
-                                        </div> -->
-                                        <button type="submit" name="login_btn" class="btn btn-success btn-user btn-block">Login</button>
-                                    </form>
-                                </div>
+                        <div class="col-md-4" >
+                            <div class="text-center">
+                                <h1 style="color:#ffffff;">
+                                    <strong style="font-family: none;">Welcome Back!</strong>
+                                </h1>
                             </div>
+                            <form class="user" action="logincode.php" method="POST">
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" placeholder="Password">
+                                </div>
+                                <!-- <div class="form-group">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                    </div>
+                                </div> -->
+                                <button type="submit" name="login_btn" class="btn btn-success btn-user btn-block">Login</button>
+                            </form>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
-
     </div>
     <?php include ('message.php'); ?>
     <script>
