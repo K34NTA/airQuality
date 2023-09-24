@@ -7,7 +7,8 @@
 
     <!-- Dashboard -->
     <h1 style="color:#00703C;">
-        <strong style="font-family: none;">IoT Real Time Air Quality Monitoring System</strong>
+        <img src="../../assets/img/logo.png" alt="invoice" width="auto" height="70" >
+        <strong>IoT Real Time Air Quality Monitoring System</strong>
     </h1>
 
     <!-- Topbar Navbar -->
