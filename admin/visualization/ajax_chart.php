@@ -1,9 +1,12 @@
 <?php
+if (!defined('DB_SERVER')) {
+    include("../../initialize.php");
+}
 // Establish a database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "air_quality";
+$servername = DB_SERVER;
+$username = DB_USERNAME;
+$password = DB_PASSWORD;
+$dbname = DB_NAME;
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

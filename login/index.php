@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <link rel="shortcut icon" type="image/ico" href="../assets/img/ccsea.png">
+    <link rel="shortcut icon" type="image/ico" href="../assets/img/logo.png">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,7 +30,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('../assets/img/background.png');
+            background-image: url('../assets/img/aqi.png');
             background-size: cover;
             background-position: center;
             z-index: -1; 

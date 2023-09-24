@@ -12,11 +12,11 @@ function isActive($url)
 
 <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:#00703C;">
 
-    <div class="image-container" style="background-color:white;  width: 100%; height: 70px; ">
+    <!-- <div class="image-container" style="background-color:#ffffff;  width: 100%; height: 70px; ">
            <center>
-           <img src="../../assets/img/lsu.png" alt="invoice" width="auto" height="70" >
+           <img src="../../assets/img/logo.png" alt="invoice" width="auto" height="70" >
            </center>
-    </div>
+    </div> -->
 
     <!-- Nav Item - Data Visualization -->
     <li class="nav-item <?php if (isActive('visualization/index.php')) { echo 'active'; } ?>">
