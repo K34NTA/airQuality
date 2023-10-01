@@ -30,14 +30,14 @@ $searchArray = array();
 // Search
 $searchQuery = "";
 if ($searchValue != '') {
-    $searchQuery = " AND (id LIKE :id OR
+    $searchQuery = " AND (time LIKE :time OR
         carbon_monoxide LIKE :carbon_monoxide OR
         nitrogen_dioxide LIKE :nitrogen_dioxide OR
         ground_level_ozone LIKE :ground_level_ozone OR
         particulate_matter LIKE :particulate_matter)
     ";
     $searchArray = array(
-        'id' => "%$searchValue%",
+        'time' => "%$searchValue%",
         'carbon_monoxide' => "%$searchValue%",
         'nitrogen_dioxide' => "%$searchValue%",
         'ground_level_ozone' => "%$searchValue%",
@@ -58,7 +58,7 @@ $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
 // Fetch the records from gasses table in the database
-$stmt = $conn->prepare("SELECT id, carbon_monoxide, nitrogen_dioxide, ground_level_ozone, particulate_matter FROM gasses WHERE 1 " . $searchQuery . " ORDER BY `" . $columnName . "` " . $columnSortOrder . " LIMIT :limit, :offset");
+$stmt = $conn->prepare("SELECT time, carbon_monoxide, nitrogen_dioxide, ground_level_ozone, particulate_matter FROM gasses WHERE 1 " . $searchQuery . " ORDER BY `" . $columnName . "` " . $columnSortOrder . " LIMIT :limit, :offset");
 
 // Bind values
 $stmt->bindParam(':limit', $row, PDO::PARAM_INT);
@@ -74,7 +74,7 @@ $data = array();
 
 foreach ($empRecords as $key => $row) {
     $data[] = array(
-        "id" => $row['id'],
+        "time" => $row['time'],
         "carbon_monoxide" => $row['carbon_monoxide'],
         "nitrogen_dioxide" => $row['nitrogen_dioxide'],
         "ground_level_ozone" => $row['ground_level_ozone'],
