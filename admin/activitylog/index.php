@@ -196,83 +196,127 @@
                         });
                 }
 
-
-                // Function to populate the table and calculate daily averages
-                function populateTableAndGraph(data) {
-                    const tableBody = document.querySelector('#data-table tbody');
-                    const averageData = {};
-
-                    // Clear existing table data
-                    tableBody.innerHTML = '';
-
-                    // Loop through the data
-                    data.forEach(item => {
-                        const { time, carbon_monoxide, nitrogen_dioxide, ground_level_ozone, particulate_matter } = item;
-
-                        // Add a row to the table
-                        const row = document.createElement('tr');
-                        row.innerHTML = `<td>${time}</td><td>${carbon_monoxide}</td><td>${nitrogen_dioxide}</td><td>${ground_level_ozone}</td><td>${particulate_matter}</td>`;
-                        tableBody.appendChild(row);
-
-                        // Calculate daily totals and counts
-                        if (averageData[time] === undefined) {
-                            averageData[time] = { total1: 0, total2: 0, total3: 0, total4: 0, count: 0 };
-                        }
-                        averageData[time].total1 += carbon_monoxide;
-                        averageData[time].total2 += nitrogen_dioxide;
-                        averageData[time].total3 += ground_level_ozone;
-                        averageData[time].total4 += particulate_matter;
-                        averageData[time].count++;
-                    });
-
-                    // Calculate daily averages for each value
-                    const date = Object.keys(averageData);
-                    const averages1 = date.map(time => (averageData[time].total1 / averageData[time].count).toFixed(2));
-                    const averages2 = date.map(time => (averageData[time].total2 / averageData[time].count).toFixed(2));
-                    const averages3 = date.map(time => (averageData[time].total3 / averageData[time].count).toFixed(2));
-                    const averages4 = date.map(time => (averageData[time].total4 / averageData[time].count).toFixed(2));
-
-                    // Create a bar chart using Chart.js
-                    const ctx = document.getElementById('average-chart').getContext('2d');
-                    if (window.myChart) {
-                        window.myChart.destroy();
-                    }
-                    window.myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: date,
-                            datasets: [
-                                {
-                                    label: 'Carbon monoxide',
-                                    data: averages1,
-                                    backgroundColor: 'rgba(0, 116, 217, 0.7)',
-                                },
-                                {
-                                    label: 'Nitrogen dioxide',
-                                    data: averages2,
-                                    backgroundColor: 'rgba(255, 0, 0, 0.7)',
-                                },
-                                {
-                                    label: 'Ground level ozone',
-                                    data: averages3,
-                                    backgroundColor: 'rgba(0, 255, 0, 0.7)',
-                                },
-                                {
-                                    label: 'Particulate matter',
-                                    data: averages4,
-                                    backgroundColor: 'rgba(255, 255, 0, 0.7)',
-                                },
-                            ],
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                },
-                            },
-                        },
-                    });
+                function formatDateTime(dateTimeString) {
+                    const options = {
+                        year: 'numeric',
+                        month: 'long',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true,
+                    };
+                    return new Date(dateTimeString).toLocaleString(undefined, options);
                 }
+
+
+// Function to populate the table and calculate daily averages
+function populateTableAndGraph(data) {
+    const tableBody = document.querySelector('#data-table tbody');
+    const averageData = {};
+
+    // Clear existing table data
+    tableBody.innerHTML = '';
+
+    // Initialize arrays to store daily averages
+    const dates = [];
+    const avgCO = [];
+    const avgNO2 = [];
+    const avgOzone = [];
+    const avgPM = [];
+
+    // Loop through the data
+    data.forEach(item => {
+        const { time, carbon_monoxide, nitrogen_dioxide, ground_level_ozone, particulate_matter } = item;
+
+        // Extract the date part (YYYY-MM-DD) from the timestamp
+        const date = time.split(' ')[0];
+
+        // Format the time
+        const formattedTime = formatDateTime(time);
+
+        // Add a row to the table
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${formattedTime}</td><td>${carbon_monoxide}</td><td>${nitrogen_dioxide}</td><td>${ground_level_ozone}</td><td>${particulate_matter}</td>`;
+        tableBody.appendChild(row);
+
+        // Create a date-specific entry in the averageData object
+        if (!averageData[date]) {
+            averageData[date] = {
+                totalCO: 0,
+                totalNO2: 0,
+                totalOzone: 0,
+                totalPM: 0,
+                count: 0,
+            };
+        }
+
+        // Add pollutant values to the corresponding totals
+        averageData[date].totalCO += parseFloat(carbon_monoxide);
+        averageData[date].totalNO2 += parseFloat(nitrogen_dioxide);
+        averageData[date].totalOzone += parseFloat(ground_level_ozone);
+        averageData[date].totalPM += parseFloat(particulate_matter);
+        averageData[date].count++;
+    });
+
+    // Calculate daily averages and populate the arrays
+    for (const date in averageData) {
+        if (averageData.hasOwnProperty(date)) {
+            const avgCOValue = (averageData[date].totalCO / averageData[date].count).toFixed(2);
+            const avgNO2Value = (averageData[date].totalNO2 / averageData[date].count).toFixed(2);
+            const avgOzoneValue = (averageData[date].totalOzone / averageData[date].count).toFixed(2);
+            const avgPMValue = (averageData[date].totalPM / averageData[date].count).toFixed(2);
+
+            dates.push(date);
+            avgCO.push(avgCOValue);
+            avgNO2.push(avgNO2Value);
+            avgOzone.push(avgOzoneValue);
+            avgPM.push(avgPMValue);
+        }
+    }
+
+    // Create a bar chart using Chart.js
+    const ctx = document.getElementById('average-chart').getContext('2d');
+    if (window.myChart) {
+        window.myChart.destroy();
+    }
+    window.myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Carbon monoxide',
+                    data: avgCO,
+                    backgroundColor: 'rgba(0, 116, 217, 0.7)',
+                },
+                {
+                    label: 'Nitrogen dioxide',
+                    data: avgNO2,
+                    backgroundColor: 'rgba(255, 0, 0, 0.7)',
+                },
+                {
+                    label: 'Ground level ozone',
+                    data: avgOzone,
+                    backgroundColor: 'rgba(0, 255, 0, 0.7)',
+                },
+                {
+                    label: 'Particulate matter',
+                    data: avgPM,
+                    backgroundColor: 'rgba(255, 255, 0, 0.7)',
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+}
+
+
 
 // Search functionality
 const searchInput = document.getElementById('search');

@@ -15,6 +15,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Set the PHP timezone to Philippine time
+date_default_timezone_set('Asia/Manila');
+
 // Query the database
 $sql = "SELECT time, carbon_monoxide, nitrogen_dioxide, ground_level_ozone, particulate_matter FROM gasses ORDER BY time DESC LIMIT 10";
 $result = $conn->query($sql);
@@ -24,6 +27,11 @@ $data = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        // Convert the timestamp to Philippine time
+        $timestamp = strtotime($row['time']);
+        $philippine_time = date('Y-m-d H:i:s', $timestamp);
+        
+        $row['time'] = $philippine_time;
         $data[] = $row;
     }
 }
