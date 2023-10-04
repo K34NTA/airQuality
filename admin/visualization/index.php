@@ -204,7 +204,7 @@
 
                               setInterval(() => {
                                 fetchDataAndUpdateCharts();
-                              }, 1000); // Adjust the interval as needed
+                              }, 30000); // milliseconds
                               fetchDataAndUpdateCharts();  
 
                                 </script> 
