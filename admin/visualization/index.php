@@ -146,9 +146,9 @@
                         const particulateMatterChart = new Chart(document.getElementById('particulateMatterChart'), particulateMatterChartConfig);
 
                         function getColorForParticulateMatter(value) {
-                            if (value <= 50) {
+                            if (value <= 154) {
                                 return 'rgba(0, 128, 0, 1)'; // Green
-                            } else if (value > 50 && value <= 100) {
+                            } else if (value > 155 && value <= 424) {
                                 return 'rgba(255, 255, 0, 1)'; // Yellow
                             } else {
                                 return 'rgba(255, 0, 0, 1)'; // Red
@@ -263,9 +263,9 @@
 
                         // Add functions to determine point background color based on value ranges
                         function getColorForCO(value) {
-                            if (value <= 2) {
+                            if (value <= 9.4) {
                                 return 'rgba(0, 128, 0, 1)'; // Green
-                            } else if (value > 2 && value <= 5) {
+                            } else if (value > 9.5 && value <= 30.4) {
                                 return 'rgba(255, 255, 0, 1)'; // Yellow
                             } else {
                                 return 'rgba(255, 0, 0, 1)'; // Red
@@ -273,9 +273,9 @@
                         }
 
                         function getColorForNO2(value) {
-                            if (value <= 1) {
+                            if (value <= 0.65) {
                                 return 'rgba(0, 128, 0, 1)'; // Green
-                            } else if (value > 1 && value <= 9) {
+                            } else if (value > 0.66 && value <= 1.24) {
                                 return 'rgba(255, 255, 0, 1)'; // Yellow
                             } else {
                                 return 'rgba(255, 0, 0, 1)'; // Red
@@ -283,9 +283,9 @@
                         }
 
                         function getColorForOzone(value) {
-                            if (value <= 3) {
+                            if (value <= 0.084) {
                                 return 'rgba(0, 128, 0, 1)'; // Green
-                            } else if (value > 3 && value <= 7) {
+                            } else if (value > 0.085 && value <= 0.374) {
                                 return 'rgba(255, 255, 0, 1)'; // Yellow
                             } else {
                                 return 'rgba(255, 0, 0, 1)'; // Red
