@@ -103,7 +103,7 @@
                         const particulateMatterChartData = {
                             labels: [],
                             datasets: [{
-                                label: 'Particulate Matter (µg/Nm3)',
+                                label: 'Particulate Matter (µg/m³)',
                                 borderColor: 'rgba(128, 0, 128, 1)',
                                 backgroundColor: 'rgba(128, 0, 128, 0.1)',
                                 fill: true,
