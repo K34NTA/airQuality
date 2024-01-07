@@ -54,7 +54,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold" style="color:#00703C;">User Guidance</h6>
+                            <h6 class="m-0 font-weight-bold" style="color:#00703C;">User Guide</h6>
                         </div>
                         <div style="padding-left:20px">
                             <div id="content" style="color:#00703C;">
@@ -151,7 +151,7 @@
                             } else if (value > 155 && value <= 424) {
                                 return 'rgba(255, 255, 0, 1)'; // Yellow
                             } else {
-                                return 'rgba(255, 0, 0, 1)'; // Red
+                                return 'rgba(255, 255, 0, 1)'; // Red
                             }
                         }
                         // End of Particulate Matter Chart
@@ -294,15 +294,29 @@
 
                         const lineChart = new Chart(document.getElementById('lineChart'), lineChartConfig);
                         const barChart = new Chart(document.getElementById('barChart'), barChartConfig);
+                        
+                    function formatDateManilaTime(utcDateTime) {
+                        const utcDate = new Date(utcDateTime);
+                        const manilaTime = new Date(utcDate.getTime() + (8 * 60 * 60 * 1000)); 
+                        
+                        return manilaTime.toLocaleString('en-US', {
+                            year: 'numeric',
+                                                month: 'numeric',
+                                                day: '2-digit',
+                                                hour: '2-digit',
+                                                minute: '2-digit',
+                                                hour12: true, 
+                        });
+                    }
 
                         function fetchDataAndUpdateCharts() {
                             $.ajax({
-                                url: 'ajax_chart.php', // Replace with the actual path to your PHP script
+                                url: 'ajax_chart.php', 
                                 type: 'GET',
                                 dataType: 'json',
-                                success: function(data) {
+                                success: function (data) {
                                     // Update line chart
-                                    lineChartData.labels = data.map(entry => entry.time);
+                                    lineChartData.labels = data.map(entry => formatDateManilaTime(entry.time));
                                     lineChartData.datasets[0].data = data.map(entry => entry.carbon_monoxide);
                                     lineChartData.datasets[1].data = data.map(entry => entry.nitrogen_dioxide);
                                     lineChartData.datasets[2].data = data.map(entry => entry.ground_level_ozone);
@@ -316,7 +330,7 @@
                                     lineChart.update();
 
                                     // Update particulate matter chart
-                                    particulateMatterChartData.labels = data.map(entry => entry.time);
+                                   particulateMatterChartData.labels = data.map(entry => formatDateManilaTime(entry.time));
                                     particulateMatterChartData.datasets[0].data = data.map(entry => entry.particulate_matter);
 
                                     // Apply color-coding to the pointBorderColor and pointBackgroundColor properties based on sensor values

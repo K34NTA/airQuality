@@ -49,4 +49,12 @@ function isActive($url)
             <span>About</span>
         </a>
     </li>
+
+    <!-- Nav Item - Tutorial -->
+    <li class="nav-item <?php if (isActive('tutorial/index.php')) { echo 'active'; } ?>">
+        <a class="nav-link" href="../tutorial/index.php">
+            <i class="fas fa-fw fa-file-alt"></i>
+            <span>Website User Guide</span>
+        </a>
+    </li>
 </ul>
