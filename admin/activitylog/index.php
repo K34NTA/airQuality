@@ -135,19 +135,23 @@
                         </div>
                     </div>
 
-                    <!-- Daily average -->
+                    <!-- Data average -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold" style="color:#00703C;">Check Daily Average</h6>
+                            <h6 class="m-0 font-weight-bold" style="color:#00703C;">Data Average</h6>
                         </div>
                         <div>
                             <div id="content" style="color:#00703C;">
                                 <div class="container-fluid" style="padding-top: 10px;">
                                     <div style="padding-left:">
-                                        <div id="search-container">
-                                            <label for="search">Search by time:</label>
-                                            <input type="date" id="search" placeholder="Enter time (YYYY-MM-DD)">
-                                            <button id="search-button">Search</button>
+                                        <div>
+                                            <label for="start-date">Start Date:</label>
+                                            <input type="date" name="start-date" id="startDate" required>
+
+                                            <label for="end-date">End Date:</label>
+                                            <input type="date" name="end-date" id="endDate" required>
+
+                                            <button type="button" id="search-button">Search</button>
                                         </div>
                                         <table id="data-table">
                                             <thead>
@@ -163,6 +167,10 @@
                                                 <!-- Table rows will be dynamically added here -->
                                             </tbody>
                                         </table>
+                                        <div style="padding-top: 5px; padding-bottom: 10px">
+                                            <!-- Download Button -->
+                                            <button onclick="downloadData()">Download</button>   
+                                        </div>
                                         <div id="average-chart-container">
                                             <canvas id="average-chart"></canvas>
                                         </div>
@@ -172,102 +180,33 @@
                         </div>
                     </div>
 
-                    <!-- Download data by specified range -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold" style="color:#00703C;">Download Data</h6>
-                        </div>
-                        <div>
-                            <div id="content" style="color:#00703C;">
-                                <div class="container-fluid" style="padding-top: 10px;">
-                                    <div style="padding-left:">
-                                        <!-- Date Range Search Bar -->
-                                        <form id="search-form">
-                                            <label for="start-date">Start Date:</label>
-                                            <input type="date" name="start-date" id="start-date" required>
-                                            
-                                            <label for="end-date">End Date:</label>
-                                            <input type="date" name="end-date" id="end-date" required>
-
-                                            <button type="button" onclick="searchData()">Search</button>
-                                        </form>
-
-                                        <table border="1" id="data-tables">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date & Time</th>
-                                                    <th>Carbon monoxide(ppm)</th>
-                                                    <th>Nitrogen dioxide(ppm)</th>
-                                                    <th>Ground level ozone(ppm)</th>
-                                                    <th>Particulate matter (µg/m³)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                // Include the PHP code for fetching data
-                                                include('downloadData.php');
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                        <div style="padding-top: 5px; padding-bottom: 10px">
-                                            <!-- Download Button -->
-                                            <button onclick="downloadData()">Download</button>   
-                                        </div>
-                                                                      
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 <!-- Javascript codes -->
                 <script>
-                    // Function to search data using AJAX
-                    function searchData() {
-                        // Get the form data
-                        var startDate = document.getElementById('start-date').value;
-                        var endDate = document.getElementById('end-date').value;
-
-                        // Create a new XMLHttpRequest object
-                        var xhr = new XMLHttpRequest();
-
-                        // Define the request parameters
-                        var url = 'downloadData.php'; // Update with the correct endpoint
-                        var params = 'start-date=' + startDate + '&end-date=' + endDate;
-
-                        // Configure the request
-                        xhr.open('POST', url, true);
-                        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-                        // Set up the callback function to handle the response
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState == 4 && xhr.status == 200) {
-                                // Update the table body with the new data
-                                document.getElementById('data-tables').getElementsByTagName('tbody')[0].innerHTML = xhr.responseText;
-                            }
-                        };
-
-                        // Send the request
-                        xhr.send(params);
-                    }
-
 
                     // Function to download data as CSV
                     function downloadData() {
                         // Get the last table data
-                        var lastTable = document.querySelector('#data-tables'); // Assuming the last table has the ID "data-table"
+                        var lastTable = document.querySelector('#data-table'); // Assuming the last table has the ID "data-table"
                         var rows = lastTable.querySelectorAll('tbody tr');
 
                         // Create a CSV string
                         var csvContent = "data:text/csv;charset=utf-8,";
-                        csvContent += "Date & Time,Carbon Monoxide (ppm),Nitrogen Dioxide (ppm),Ground-level Ozone (ppm),Particulate Matter (µg/m³)\n";
+                        csvContent += "Date & Time,Carbon Monoxide,Nitrogen Dioxide,Ground-level Ozone,Particulate Matter\n";
 
                         rows.forEach(function (row) {
                             var cols = row.querySelectorAll('td');
                             var rowData = [];
-                            cols.forEach(function (col) {
-                                rowData.push(col.innerText);
-                            });
+
+                            // Assuming date and time are in the first column
+                            var dateTime = cols[0].innerText.trim();
+
+                            rowData.push('"' + dateTime + '"'); // Enclose in double quotes to preserve spaces
+
+                            // Continue with the rest of the columns
+                            for (var i = 1; i < cols.length; i++) {
+                                rowData.push(cols[i].innerText.trim());
+                            }
+
                             csvContent += rowData.join(",") + "\n";
                         });
 
@@ -312,7 +251,7 @@
                     }
 
 
-                    // Function to populate the table and calculate daily averages
+                    // Function to populate the table and calculate data averages
                     function populateTableAndGraph(data) {
                         const tableBody = document.querySelector('#data-table tbody');
                         const averageData = {};
@@ -320,7 +259,7 @@
                         // Clear existing table data
                         tableBody.innerHTML = '';
 
-                        // Initialize arrays to store daily averages
+                        // Initialize arrays to store data averages
                         const dates = [];
                         const avgCO = [];
                         const avgNO2 = [];
@@ -361,7 +300,7 @@
                             averageData[date].count++;
                         });
 
-                        // Calculate daily averages and populate the arrays
+                        // Calculate data averages and populate the arrays
                         for (const date in averageData) {
                             if (averageData.hasOwnProperty(date)) {
                                 const avgCOValue = (averageData[date].totalCO / averageData[date].count).toFixed(2);
@@ -422,19 +361,22 @@
 
 
                     // Search functionality
-                    const searchInput = document.getElementById('search');
+                    const startDateInput = document.getElementById('startDate');
+                    const endDateInput = document.getElementById('endDate');
                     const searchButton = document.getElementById('search-button');
 
                     // Function to handle the search action
                     function performSearch() {
-                        const searchTerm = searchInput.value.trim();
-                        if (searchTerm === '') {
-                            // If the search bar is cleared, fetch and display the latest data
+                        const startDate = startDateInput.value.trim();
+                        const endDate = endDateInput.value.trim();
+
+                        if (startDate === '' && endDate === '') {
+                            // If both start date and end date are empty, fetch and display the latest data
                             fetchDataAndPopulate();
                         } else {
-                            // Validate that searchTerm is in YYYY-MM-DD format (you can add more robust validation)
-                            if (/^\d{4}-\d{2}-\d{2}$/.test(searchTerm)) {
-                                fetch(`backends.php?search=${searchTerm}`)
+                            // Validate that both start and end dates are in YYYY-MM-DD format (you can add more robust validation)
+                            if (/^\d{4}-\d{2}-\d{2}$/.test(startDate) && /^\d{4}-\d{2}-\d{2}$/.test(endDate)) {
+                                fetch(`dataBack.php?startDate=${startDate}&endDate=${endDate}`)
                                     .then(response => response.json())
                                     .then(data => {
                                         populateTableAndGraph(data);
@@ -443,25 +385,16 @@
                                         console.error('Error fetching data:', error);
                                     });
                             } else {
-                                alert('Please enter a valid date in YYYY-MM-DD format.');
+                                alert('Please enter valid start and end dates in YYYY-MM-DD format.');
                             }
                         }
                     }
 
-                    // Attach the search function to the input field's keypress event
-                    searchInput.addEventListener('keypress', event => {
-                        if (event.key === 'Enter') {
-                            performSearch();
-                        }
-                    });
-
                     // Attach the search function to the button's click event
                     searchButton.addEventListener('click', performSearch);
 
-
-
-                        // Call the function with your data to initialize the page
-                        fetchDataAndPopulate();
+                    // Call the function with your data to initialize the page
+                    fetchDataAndPopulate();
 
                     $(document).ready(function() {
                         var dataTable = $('#dataTable').DataTable({

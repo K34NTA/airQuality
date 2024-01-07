@@ -27,9 +27,9 @@ $data = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Convert the timestamp to Philippine time
+        // Convert the timestamp to Philippine time (GMT+8)
         $timestamp = strtotime($row['time']);
-        $philippine_time = date('Y-m-d H:i:s', $timestamp);
+        $philippine_time = gmdate('Y-m-d H:i:s', $timestamp + 8 * 3600); // Add 8 hours in seconds
         
         $row['time'] = $philippine_time;
         $data[] = $row;
