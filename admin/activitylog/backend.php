@@ -14,16 +14,17 @@ try {
     $conn = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 } catch (PDOException $e) {
     echo $e->getMessage();
+    exit(); // Exit the script if there's a database connection error
 }
 
 // Reading values
-$draw = $_POST['draw'];
-$row = $_POST['start'];
-$rowperpage = $_POST['length']; // Rows displayed per page
-$columnIndex = $_POST['order'][0]['column']; // Column index
-$columnName = $_POST['columns'][$columnIndex]['data']; // Column name
-$columnSortOrder = $_POST['order'][0]['dir']; // asc or desc
-$searchValue = $_POST['search']['value']; // Search value
+$draw = isset($_POST['draw']) ? $_POST['draw'] : 0;
+$row = isset($_POST['start']) ? $_POST['start'] : 0;
+$rowperpage = isset($_POST['length']) ? $_POST['length'] : 10; // Rows displayed per page
+$columnIndex = isset($_POST['order'][0]['column']) ? $_POST['order'][0]['column'] : 0; // Column index
+$columnName = isset($_POST['columns'][$columnIndex]['data']) ? $_POST['columns'][$columnIndex]['data'] : 'time'; // Column name
+$columnSortOrder = isset($_POST['order'][0]['dir']) ? $_POST['order'][0]['dir'] : 'asc'; // asc or desc
+$searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : ''; // Search value
 
 $searchArray = array();
 
@@ -58,11 +59,11 @@ $records = $stmt->fetch();
 $totalRecordwithFilter = $records['allcount'];
 
 // Fetch the records from gasses table in the database
-$stmt = $conn->prepare("SELECT time, carbon_monoxide, nitrogen_dioxide, ground_level_ozone, particulate_matter FROM gasses WHERE 1 " . $searchQuery . " ORDER BY `" . $columnName . "` " . $columnSortOrder . " LIMIT :limit, :offset");
+$stmt = $conn->prepare("SELECT time, carbon_monoxide, nitrogen_dioxide, ground_level_ozone, particulate_matter FROM gasses WHERE 1 " . $searchQuery . " ORDER BY `" . $columnName . "` " . $columnSortOrder . " LIMIT :offset, :limit");
 
 // Bind values
-$stmt->bindParam(':limit', $row, PDO::PARAM_INT);
-$stmt->bindParam(':offset', $rowperpage, PDO::PARAM_INT);
+$stmt->bindParam(':limit', $rowperpage, PDO::PARAM_INT);
+$stmt->bindParam(':offset', $row, PDO::PARAM_INT);
 foreach ($searchArray as $key => &$search) {
     $stmt->bindParam(':' . $key, $search, PDO::PARAM_STR);
 }
